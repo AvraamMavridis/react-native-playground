@@ -3,8 +3,8 @@ import {
   View,
 } from 'react-native';
 
-import LocationStore from 'loca/stores/LocationStore';
-import GeoLocation from 'loca/components/GeoLocation';
+import LocationStore from '../../stores/LocationStore';
+import GeoLocation from '../../components/GeoLocation';
 
 export default class Main extends Component
 {

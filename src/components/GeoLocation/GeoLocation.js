@@ -6,7 +6,6 @@ import {
   View,
 } from 'react-native';
 
-@observer
 export default class GeoLocation extends Component
 {
 
