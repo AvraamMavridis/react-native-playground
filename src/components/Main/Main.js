@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
   View,
+  Text
 } from 'react-native';
 
-import LocationStore from '../../stores/LocationStore';
 import GeoLocation from '../../components/GeoLocation';
 
 export default class Main extends Component
@@ -12,7 +12,8 @@ export default class Main extends Component
     {
         return (
             <View>
-                <GeoLocation locationStore={ LocationStore } />
+              <Text>I am ???</Text>
+              <GeoLocation />
             </View>
         );
     }

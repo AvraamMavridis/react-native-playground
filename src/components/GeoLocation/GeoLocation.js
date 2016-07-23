@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
 import { Card, Button } from 'react-native-material-design';
 import {
+  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -20,36 +20,43 @@ export default class GeoLocation extends Component
         };
     }
 
-    getUserLocation()
-    {
-        navigator.geolocation.getCurrentPosition( pos => this.setState( pos ) );
+    componentDidMount() {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          var initialPosition = JSON.stringify(position);
+          this.setState({initialPosition});
+        },
+        (error) => alert(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      );
+      this.watchID = navigator.geolocation.watchPosition((position) => {
+        var lastPosition = JSON.stringify(position);
+        this.setState({lastPosition});
+      });
     }
 
-    saveUserLocation()
-    {
-        const { locationStore } = this.props;
-        locationStore.saveUserLocation( this.state );
+    componentWillUnmount() {
+      navigator.geolocation.clearWatch(this.watchID);
     }
 
-    render()
-    {
-        const { latitude, longitude, accuracy, altitude } = this.state;
-
-        return (
-          <View>
-              <Card>
-                  <Card.Body>
-                      <Text>Latitude : { latitude }</Text>
-                      <Text>Longitude : { longitude }</Text>
-                      <Text>Accuracy : { accuracy }</Text>
-                      <Text>Altitude : { altitude }</Text>
-                  </Card.Body>
-                  <Card.Actions position="right">
-                      <Button value="Get Location" onClick={ () => this.getUserLocation() } />
-                      <Button value="Save Location" onClick={ () => this.saveUserLocation() } />
-                  </Card.Actions>
-              </Card>
-          </View>
+    render() {
+      return (
+        <View>
+          <Text>
+            <Text style={styles.title}>Initial position: </Text>
+            {this.state.initialPosition}
+          </Text>
+          <Text>
+            <Text style={styles.title}>Current position: </Text>
+            {this.state.lastPosition}
+          </Text>
+        </View>
       );
     }
 }
+
+var styles = StyleSheet.create({
+  title: {
+    fontWeight: '500',
+  },
+});
