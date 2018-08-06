@@ -1,0 +1,13 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "src/components/GeoLocation/package.json",
+        "src/components/LocationsList/package.json",
+        "src/components/Main/package.json",
+        "src/stores/LocationStore/package.json"
+      ]
+    }
+  }
+}
